@@ -1,0 +1,55 @@
+export enum KeyState {
+  PRESSED = 1,
+  RELEASED = 0,
+}
+
+type KeyFn = (keyState: number) => void;
+
+type KeyboardStateConfig = {
+  allowKeyRepeating?: boolean;
+};
+
+export class KeyboardState {
+  // Holds the current state of a given key
+  private readonly keyStates = new Map<string, number>();
+
+  // Holds the callback functions for a key code
+  private readonly keyMap = new Map<string, KeyFn>();
+
+  constructor(private readonly config: KeyboardStateConfig = { allowKeyRepeating: false }) {}
+
+  addMapping(codes: string | string[], callback: KeyFn) {
+    if (Array.isArray(codes)) {
+      codes.forEach(code => this.keyMap.set(code, callback));
+      return;
+    }
+
+    this.keyMap.set(codes, callback);
+  }
+
+  listenTo(window: Window) {
+    const eventNames = ['keydown', 'keyup'] as const;
+    eventNames.forEach(eventName => {
+      window.addEventListener(eventName, event => {
+        this.handleEvent(event);
+      });
+    });
+  }
+
+  private handleEvent(event: KeyboardEvent) {
+    const { code } = event;
+    if (!this.keyMap.has(code)) {
+      return;
+    }
+
+    event.preventDefault();
+    const keyState = event.type === 'keydown' ? KeyState.PRESSED : KeyState.RELEASED;
+    if (this.keyStates.get(code) === keyState && !this.config.allowKeyRepeating) {
+      return;
+    }
+
+    this.keyStates.set(code, keyState);
+    const fn = this.keyMap.get(code)!;
+    fn(keyState);
+  }
+}

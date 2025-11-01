@@ -1,0 +1,13 @@
+export const KEY_W = 'KeyW';
+export const KEY_A = 'KeyA';
+export const KEY_S = 'KeyS';
+export const KEY_D = 'KeyD';
+export const KEY_E = 'KeyE';
+export const KEY_Q = 'KeyQ';
+export const KEY_T = 'KeyT';
+export const KEY_ARROW_LEFT = 'ArrowLeft';
+export const KEY_ARROW_RIGHT = 'ArrowRight';
+export const KEY_ARROW_DOWN = 'ArrowDown';
+export const KEY_SPACE = 'Space';
+export const KEY_LEFT_SHIFT = 'ShiftLeft';
+export const KEY_ESCAPE = 'Escape';

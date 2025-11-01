@@ -1,0 +1,11 @@
+{
+  "name": "@beholder/core",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

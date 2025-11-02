@@ -6,7 +6,9 @@ import { setupKeyboardForOnePlayer } from './input';
 import { Renderer } from './components/renderer';
 import { Tetris } from './entities/tetris';
 
-const SECONDS = 1000;
+const WE_WORK_IN_SECONDS = 1000;
+// export const DROP_TIME = 1000; //  1 second - easier
+export const DROP_TIME = 500; // 0.5 second - harder
 
 const { context } = initializeCanvas({ elementId: 'tetris', width: 240, height: 400 });
 context.scale(20, 20);
@@ -16,7 +18,7 @@ const tetris = new Tetris(document.getElementById('score') as HTMLDivElement);
 
 const timer = new Timer();
 timer.setUpdateFn(deltaTime => {
-  const dt = deltaTime * SECONDS;
+  const dt = deltaTime * WE_WORK_IN_SECONDS;
   tetris.update(dt);
   tetris.render(renderer);
 });

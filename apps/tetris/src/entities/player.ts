@@ -3,9 +3,7 @@ import { PieceManager } from '../components/piece-manager';
 import type { Renderer } from '../components/renderer';
 import type { BoardLike, Entity } from './types';
 import type { PlayerState, StateManager } from '../components/state';
-
-// const DROP_TIME = 1000; // 1 second
-const DROP_TIME = 500; // 0.5 second
+import { DROP_TIME } from '../main';
 
 export enum MoveDirection {
   RIGHT = 1,

@@ -1,3 +1,7 @@
+// We use miliseconds because if we need higher precision, we can achieve it this way.
+// If you want to work in seconds, just multiply deltaTime by a 1000.
+const IN_MILISECONDS = 1000;
+
 export class Timer {
   private frameId = 0;
   private isRunning = false;
@@ -11,7 +15,7 @@ export class Timer {
 
     this.updateProxy = (time: number) => {
       if (lastTime) {
-        accumulatedTime += (time - lastTime) / 1000;
+        accumulatedTime += (time - lastTime) / IN_MILISECONDS;
 
         if (accumulatedTime > 1) {
           accumulatedTime = 1;

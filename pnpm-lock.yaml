@@ -18,6 +18,22 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
+  apps/aabb-collision:
+    dependencies:
+      '@beholder/common':
+        specifier: workspace:*
+        version: link:../../packages/common
+      '@beholder/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+    devDependencies:
+      typescript:
+        specifier: ~5.9.3
+        version: 5.9.3
+      vite:
+        specifier: ^7.1.7
+        version: 7.1.12(@types/node@22.15.3)(lightningcss@1.30.2)
+
   apps/narindor:
     dependencies:
       '@beholder/common':

@@ -33,6 +33,16 @@ export class Vector2 {
     return new Vector2(this.x + that.x, this.y + that.y);
   }
 
+  get length() {
+    return Math.sqrt(this.x ** 2 + this.y ** 2);
+  }
+
+  set length(value) {
+    const f = value / this.length;
+    this.x *= f;
+    this.y *= f;
+  }
+
   static isVector2(value: unknown): value is Vector2 {
     if (!value) {
       return false;

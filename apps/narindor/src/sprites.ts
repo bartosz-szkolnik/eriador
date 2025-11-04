@@ -1,4 +1,4 @@
-import { loadImage, SpriteSheet } from '@beholder/common';
+import { loadImage, SpriteSheet } from '@eriador/common';
 
 export async function loadBackgroundSprites() {
   const image = await loadImage('/assets/dungeon-tileset.png');

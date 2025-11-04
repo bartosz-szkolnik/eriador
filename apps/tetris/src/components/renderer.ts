@@ -1,4 +1,4 @@
-import type { Matrix, Vector2 } from '@beholder/core';
+import type { Matrix, Vector2 } from '@eriador/core';
 import { EMPTY } from './pieces';
 
 export class Renderer {

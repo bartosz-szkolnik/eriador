@@ -1,4 +1,4 @@
-import { LimitedArray } from '@beholder/core';
+import { LimitedArray } from '@eriador/core';
 import { PIECES, type Piece, type PieceSymbol } from './pieces';
 
 export class PieceManager {

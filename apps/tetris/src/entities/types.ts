@@ -1,4 +1,4 @@
-import type { Vector2 } from '@beholder/core';
+import type { Vector2 } from '@eriador/core';
 import type { Piece } from '../components/pieces';
 import type { Renderer } from '../components/renderer';
 

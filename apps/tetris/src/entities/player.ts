@@ -1,4 +1,4 @@
-import { EventEmitter, MatrixRotateDirection, Vector2 } from '@beholder/core';
+import { EventEmitter, MatrixRotateDirection, Vector2 } from '@eriador/core';
 import { PieceManager } from '../components/piece-manager';
 import type { Renderer } from '../components/renderer';
 import type { BoardLike, Entity } from './types';

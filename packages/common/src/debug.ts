@@ -1,5 +1,5 @@
 import type { Camera } from './camera';
-import type { Entity } from '@beholder/core';
+import type { Entity } from '@eriador/core';
 
 export function setupMouseControl(canvas: HTMLCanvasElement, entity: Entity, camera: Camera) {
   let lastEvent: MouseEvent | null = null;

@@ -1,4 +1,4 @@
-import { loadJSON } from '@beholder/common';
+import { loadJSON } from '@eriador/common';
 import type { RoomSpec } from './types';
 import { Room } from './room';
 import { createBackgroundLayer, createSpriteLayer } from './layers';

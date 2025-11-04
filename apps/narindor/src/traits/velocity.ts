@@ -1,4 +1,4 @@
-import { Entity, Trait, type GameContext } from '@beholder/core';
+import { Entity, Trait, type GameContext } from '@eriador/core';
 
 export class Velocity extends Trait {
   update(entity: Entity, { deltaTime }: GameContext): void {

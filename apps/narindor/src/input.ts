@@ -1,5 +1,5 @@
-import { Entity, InputRouter } from '@beholder/core';
-import { KeyboardState, Keys } from '@beholder/common';
+import { Entity, InputRouter } from '@eriador/core';
+import { KeyboardState, Keys } from '@eriador/common';
 import { Jump } from './traits';
 import { Go } from './traits/go';
 

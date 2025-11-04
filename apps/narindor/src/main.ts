@@ -1,6 +1,6 @@
 import './style.css';
-import { Timer, type GameContext } from '@beholder/core';
-import { Camera, initializeCanvas, Keys, setupMouseControl } from '@beholder/common';
+import { Timer, type GameContext } from '@eriador/core';
+import { Camera, initializeCanvas, Keys, setupMouseControl } from '@eriador/common';
 import { createHero } from './entities';
 import { setupKeyboard } from './input';
 import { loadRoom } from './loaders';

@@ -1,4 +1,4 @@
-import { type Side, type Entity } from './entity';
+import { type Entity } from './entity';
 import type { GameContext } from '../types';
 // import type { Match } from '../collisions/tile-resolver';
 

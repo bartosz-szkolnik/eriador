@@ -1,5 +1,5 @@
-// import { type Match } from '@beholder/common';
-import { Entity, Trait, type GameContext, type Side } from '@beholder/core';
+// import { type Match } from '@eriador/common';
+import { Entity, Trait, type GameContext } from '@eriador/core';
 
 const MAX_DURATION = 0.3;
 const SPEED_BOOST = 0.3;

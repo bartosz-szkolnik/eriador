@@ -1,4 +1,4 @@
-import { Entity } from '@beholder/core';
+import { Entity } from '@eriador/core';
 import { loadHeroSprite } from '../sprites';
 import { Jump, Go } from '../traits';
 

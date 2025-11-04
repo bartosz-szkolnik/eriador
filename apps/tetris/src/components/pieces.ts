@@ -1,4 +1,4 @@
-import { Matrix } from '@beholder/core';
+import { Matrix } from '@eriador/core';
 
 export const EMPTY = '0';
 export const RED = '#FF0D72'; // 1

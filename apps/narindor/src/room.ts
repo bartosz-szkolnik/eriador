@@ -1,5 +1,5 @@
-import { Camera, Compositor, type Layer } from '@beholder/common';
-import { Entity, Matrix, TileCollider, type GameContext, type Tile } from '@beholder/core';
+import { Camera, Compositor, type Layer } from '@eriador/common';
+import { Entity, Matrix, TileCollider, type GameContext, type Tile } from '@eriador/core';
 
 // type Tile = {
 //   name: string;

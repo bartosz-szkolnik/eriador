@@ -20,10 +20,10 @@ importers:
 
   apps/aabb-collision:
     dependencies:
-      '@beholder/common':
+      '@eriador/common':
         specifier: workspace:*
         version: link:../../packages/common
-      '@beholder/core':
+      '@eriador/core':
         specifier: workspace:*
         version: link:../../packages/core
     devDependencies:
@@ -36,10 +36,10 @@ importers:
 
   apps/narindor:
     dependencies:
-      '@beholder/common':
+      '@eriador/common':
         specifier: workspace:*
         version: link:../../packages/common
-      '@beholder/core':
+      '@eriador/core':
         specifier: workspace:*
         version: link:../../packages/core
     devDependencies:
@@ -52,10 +52,10 @@ importers:
 
   apps/tetris:
     dependencies:
-      '@beholder/common':
+      '@eriador/common':
         specifier: workspace:*
         version: link:../../packages/common
-      '@beholder/core':
+      '@eriador/core':
         specifier: workspace:*
         version: link:../../packages/core
     devDependencies:
@@ -68,7 +68,7 @@ importers:
 
   packages/common:
     dependencies:
-      '@beholder/core':
+      '@eriador/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:

@@ -1,7 +1,7 @@
 import './style.css';
 
-import { initializeCanvas, Keys } from '@beholder/common';
-import { Timer } from '@beholder/core';
+import { initializeCanvas, Keys } from '@eriador/common';
+import { Timer } from '@eriador/core';
 import { setupKeyboardForOnePlayer } from './input';
 import { Renderer } from './components/renderer';
 import { Tetris } from './entities/tetris';

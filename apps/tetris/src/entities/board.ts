@@ -1,4 +1,4 @@
-import { Matrix, Vector2 } from '@beholder/core';
+import { Matrix, Vector2 } from '@eriador/core';
 import { EMPTY, type Piece } from '../components/pieces';
 import type { BoardLike, Entity } from './types';
 import type { Renderer } from '../components/renderer';

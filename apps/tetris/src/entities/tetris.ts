@@ -1,4 +1,4 @@
-import { EventEmitter } from '@beholder/core';
+import { EventEmitter } from '@eriador/core';
 import type { Entity } from './types';
 import { Player, type PlayerEvents } from './player';
 import { Board } from './board';

@@ -1,5 +1,5 @@
-import { KeyboardState, Keys } from '@beholder/common';
-import { InputRouter } from '@beholder/core';
+import { KeyboardState, Keys } from '@eriador/common';
+import { InputRouter } from '@eriador/core';
 import { MoveDirection, type Player } from './entities/player';
 
 export function setupKeyboardForOnePlayer(window: Window) {

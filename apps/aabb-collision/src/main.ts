@@ -1,7 +1,7 @@
 // Based on https://github.com/pomle/aabb-collision
 
-import { Vector2 } from '@beholder/core';
-import { initializeCanvas } from '@beholder/common';
+import { Vector2 } from '@eriador/core';
+import { initializeCanvas } from '@eriador/common';
 import { Rectangle } from './rectangle';
 import './style.css';
 

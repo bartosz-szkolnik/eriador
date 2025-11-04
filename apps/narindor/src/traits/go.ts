@@ -1,4 +1,4 @@
-import { Entity, Trait, type GameContext } from '@beholder/core';
+import { Entity, Trait, type GameContext } from '@eriador/core';
 
 // export const GoDirection = {
 //   IDLE: 0,

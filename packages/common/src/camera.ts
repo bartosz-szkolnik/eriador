@@ -1,4 +1,4 @@
-import { Vector2 } from '@beholder/core';
+import { Vector2 } from '@eriador/core';
 
 export class Camera {
   readonly position = new Vector2(0, 0);

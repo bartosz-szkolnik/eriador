@@ -1,5 +1,5 @@
-import type { Layer, SpriteSheet } from '@beholder/common';
-import type { Entity } from '@beholder/core';
+import type { Layer, SpriteSheet } from '@eriador/common';
+import type { Entity } from '@eriador/core';
 import type { Room } from './room';
 
 export function createSpriteLayer(entities: Set<Entity>, width = 64, height = 64): Layer {
@@ -21,7 +21,7 @@ export function createSpriteLayer(entities: Set<Entity>, width = 64, height = 64
 
 export function createBackgroundLayer(room: Room, sprites: SpriteSheet): Layer {
   const buffer = document.createElement('canvas');
-  buffer.width = 256;
+  buffer.width = 2048;
   buffer.height = 240;
   const context = buffer.getContext('2d')!;
 

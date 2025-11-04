@@ -1,5 +1,5 @@
 {
-  "name": "@beholder/common",
+  "name": "@eriador/common",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
@@ -9,6 +9,6 @@
     "typescript": "5.9.3"
   },
   "dependencies": {
-    "@beholder/core": "workspace:*"
+    "@eriador/core": "workspace:*"
   }
 }

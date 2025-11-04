@@ -54,14 +54,14 @@ export class Board implements Entity, BoardLike {
     const { matrix } = this.state;
 
     outer: for (let y = matrix.length - 1; y > 0; --y) {
-      for (let x = 0; x < matrix.grid[y].length; ++x) {
-        if (matrix.grid[y][x] === EMPTY) {
+      for (let x = 0; x < matrix.getCol(y).length; ++x) {
+        if (matrix.get(y, x) === EMPTY) {
           continue outer;
         }
       }
 
-      const row = matrix.grid.splice(y, 1)[0].fill(EMPTY);
-      matrix.grid.unshift(row);
+      const deletedRow = matrix.splice(y, 1)[0];
+      matrix.unshift(deletedRow.fill(EMPTY));
       ++y;
 
       score += rowCount * 10;

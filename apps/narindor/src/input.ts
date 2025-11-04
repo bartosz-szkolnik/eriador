@@ -1,23 +1,24 @@
 import { Entity, InputRouter } from '@beholder/core';
-import { KeyboardState } from '@beholder/common';
+import { KeyboardState, Keys } from '@beholder/common';
 import { Jump } from './traits';
+import { Go } from './traits/go';
 
 const KEY_MAP = {
-  UP: 'ArrowUp',
-  DOWN: 'ArrowDown',
-  LEFT: 'ArrowLeft',
-  RIGHT: 'ArrowRight',
-  A: 'Space',
-  B: 'ShiftLeft',
+  UP: Keys.KEY_ARROW_UP,
+  DOWN: Keys.KEY_ARROW_DOWN,
+  LEFT: Keys.KEY_ARROW_LEFT,
+  RIGHT: Keys.KEY_ARROW_RIGHT,
+  A: Keys.KEY_SPACE,
+  B: Keys.KEY_LEFT_SHIFT,
 };
 
 const ALTERNATIVE_KEY_MAP = {
-  UP: 'KeyW',
-  DOWN: 'KeyS',
-  LEFT: 'KeyA',
-  RIGHT: 'KeyD',
-  A: 'KeyP',
-  B: 'KeyO',
+  UP: Keys.KEY_W,
+  DOWN: Keys.KEY_S,
+  LEFT: Keys.KEY_A,
+  RIGHT: Keys.KEY_D,
+  A: Keys.KEY_P,
+  B: Keys.KEY_O,
 };
 
 export function setupKeyboard(window: Window) {
@@ -40,13 +41,13 @@ export function setupKeyboard(window: Window) {
 
   input.addMapping([KEY_MAP.RIGHT, ALTERNATIVE_KEY_MAP.RIGHT], keyState => {
     router.route(entity => {
-      // entity.get(Go).direction += keyState ? 1 : -1;
+      entity.get(Go).changeDirection(keyState ? 1 : -1);
     });
   });
 
   input.addMapping([KEY_MAP.LEFT, ALTERNATIVE_KEY_MAP.LEFT], keyState => {
     router.route(entity => {
-      // entity.get(Go).direction += keyState ? -1 : 1;
+      entity.get(Go).changeDirection(keyState ? -1 : 1);
     });
   });
 

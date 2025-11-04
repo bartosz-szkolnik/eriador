@@ -1,17 +1,18 @@
 import { Entity } from '@beholder/core';
 import { loadHeroSprite } from '../sprites';
-import { Jump, Velocity } from '../traits';
+import { Jump, Go } from '../traits';
 
 export async function createHero() {
   const sprite = await loadHeroSprite();
 
   const hero = new Entity();
+  hero.size.set(16, 16);
 
-  hero.addTrait(new Velocity());
+  hero.addTrait(new Go());
   hero.addTrait(new Jump());
 
   hero.draw = function drawHero(context) {
-    sprite.draw('idle', context, this.position.x, this.position.y);
+    sprite.draw('idle', context, 0, 0);
   };
 
   return hero;

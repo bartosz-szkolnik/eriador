@@ -4,3 +4,4 @@ export * from './timer';
 export * from './input-router';
 export * from './event-emitter';
 export * from './types';
+export * from './collisions';

@@ -4,7 +4,7 @@ export enum MatrixRotateDirection {
 }
 
 export class Matrix<T = unknown> {
-  grid: Array<Array<T>> = [];
+  private readonly grid: Array<Array<T>> = [];
 
   get length() {
     return this.grid.length;
@@ -64,11 +64,19 @@ export class Matrix<T = unknown> {
     }
   }
 
+  unshift(row: Array<T>) {
+    this.grid.unshift(row);
+  }
+
+  splice(y: number, deleteCount = 1) {
+    return this.grid.splice(y, deleteCount);
+  }
+
   static fromArray<T>(array: T[][]) {
     const matrix = new Matrix<T>();
 
-    array.forEach((row, x) => {
-      row.forEach((value, y) => {
+    array.forEach((row, y) => {
+      row.forEach((value, x) => {
         matrix.set(x, y, value);
       });
     });

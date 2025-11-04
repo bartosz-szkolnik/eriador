@@ -1,37 +1,31 @@
 import './style.css';
-import { Timer } from '@beholder/core';
-import { initializeCanvas, loadJSON, Keys, Compositor } from '@beholder/common';
-import type { LevelSpec } from './types';
-import { loadBackgroundSprites } from './sprites';
-import { createBackgroundLayer, createSpriteLayer } from './layers';
+import { Timer, type GameContext } from '@beholder/core';
+import { Camera, initializeCanvas, Keys, setupMouseControl } from '@beholder/common';
 import { createHero } from './entities';
 import { setupKeyboard } from './input';
+import { loadRoom } from './loaders';
+import { createCollisionLayer } from './layers';
 
-const { context } = initializeCanvas({ elementId: 'screen', width: 640, height: 640 });
+const { context, canvas } = initializeCanvas({ elementId: 'screen', width: 640, height: 640 });
 
-const GRAVITY = 2000;
+Promise.all([createHero(), loadRoom('debug')]).then(([hero, room]) => {
+  const camera = new Camera();
+  hero.position.set(64, 64);
+  room.addEntity(hero);
 
-Promise.all([createHero(), loadBackgroundSprites(), loadLevel('debug')]).then(([hero, backgroundSprites, level]) => {
-  const compositor = new Compositor();
-
-  const backgroundLayer = createBackgroundLayer(level.backgrounds, backgroundSprites);
-  compositor.addLayer(backgroundLayer);
-
-  hero.position.set(64, 180);
+  setupMouseControl(canvas, hero, camera);
+  const collisionLayer = createCollisionLayer(room);
+  room.addLayer(collisionLayer);
 
   const inputRouter = setupKeyboard(window);
   inputRouter.addReceiver(hero);
 
-  const spriteLayer = createSpriteLayer(hero);
-  compositor.addLayer(spriteLayer);
-
   const timer = new Timer();
   timer.setUpdateFn(deltaTime => {
-    hero.update({ deltaTime });
+    const gameContext = { deltaTime } satisfies GameContext;
 
-    compositor.draw(context);
-
-    hero.velocity.y += GRAVITY * deltaTime;
+    room.update(gameContext);
+    room.draw(context, camera);
   });
 
   timer.start();
@@ -43,7 +37,3 @@ Promise.all([createHero(), loadBackgroundSprites(), loadLevel('debug')]).then(([
     }
   });
 });
-
-function loadLevel(name: string) {
-  return loadJSON<LevelSpec>(`/assets/levels/${name}.json`);
-}

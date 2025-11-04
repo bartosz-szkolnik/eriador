@@ -5,4 +5,5 @@ export * from './spritesheet';
 export * from './animation';
 export * from './camera';
 export * from './compositor';
+export * from './debug';
 export * as Keys from './keys';

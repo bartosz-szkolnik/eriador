@@ -8,6 +8,6 @@ export type TileSpec = {
   // tileset: 'foreground' | 'background';
 };
 
-export type LevelSpec = {
+export type RoomSpec = {
   backgrounds: TileSpec[];
 };

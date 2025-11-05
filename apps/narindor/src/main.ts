@@ -4,9 +4,10 @@ import { Camera, initializeCanvas, Keys, setupMouseControl } from '@eriador/comm
 import { createHero } from './entities';
 import { setupKeyboard } from './input';
 import { loadRoom } from './loaders';
-import { createCollisionLayer } from './layers';
+import { createCameraLayer, createCollisionLayer } from './layers';
 
-const { context, canvas } = initializeCanvas({ elementId: 'screen', width: 640, height: 640 });
+// Todo: Figure out how wide the canvas should be
+const { context, canvas } = initializeCanvas({ elementId: 'screen', width: 256 + 16, height: 240 });
 
 Promise.all([createHero(), loadRoom('debug')]).then(([hero, room]) => {
   const camera = new Camera();
@@ -14,8 +15,9 @@ Promise.all([createHero(), loadRoom('debug')]).then(([hero, room]) => {
   room.addEntity(hero);
 
   setupMouseControl(canvas, hero, camera);
-  const collisionLayer = createCollisionLayer(room);
-  room.addLayer(collisionLayer);
+
+  room.addLayer(createCollisionLayer(room));
+  room.addLayer(createCameraLayer(camera));
 
   const inputRouter = setupKeyboard(window);
   inputRouter.addReceiver(hero);

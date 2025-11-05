@@ -54,7 +54,7 @@ export class TileResolver {
   }
 
   private getByIndex(indexX: number, indexY: number): Match | undefined {
-    const tile = this.matrix.get(indexY, indexX);
+    const tile = this.matrix.get(indexX, indexY);
     const { tileSize } = this;
 
     if (tile) {

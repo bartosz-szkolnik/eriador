@@ -39,7 +39,7 @@ function createTiles(room: Room, backgrounds: RoomSpec['backgrounds']) {
 
     for (let x = xStart; x < xEnd; ++x) {
       for (let y = yStart; y < yEnd; ++y) {
-        room.tiles.set(y, x, { name: tile, behavior });
+        room.tiles.set(x, y, { name: tile, behavior });
       }
     }
   }

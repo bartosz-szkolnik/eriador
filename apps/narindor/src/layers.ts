@@ -1,5 +1,5 @@
-import type { Layer, SpriteSheet } from '@eriador/common';
-import type { Entity } from '@eriador/core';
+import type { Camera, Layer, SpriteSheet } from '@eriador/common';
+import { Matrix, toIndex, type Entity, type Tile } from '@eriador/core';
 import type { Room } from './room';
 
 export function createSpriteLayer(entities: Set<Entity>, width = 64, height = 64): Layer {
@@ -11,27 +11,33 @@ export function createSpriteLayer(entities: Set<Entity>, width = 64, height = 64
   return function drawSpriteLayer(context, camera) {
     entities.forEach(entity => {
       spriteBufferContext.clearRect(0, 0, width, height);
-
       entity.draw(spriteBufferContext);
-
       context.drawImage(spriteBuffer, entity.position.x - camera.position.x, entity.position.y - camera.position.y);
     });
   };
 }
 
 export function createBackgroundLayer(room: Room, sprites: SpriteSheet): Layer {
-  const buffer = document.createElement('canvas');
-  buffer.width = 2048;
-  buffer.height = 240;
-  const context = buffer.getContext('2d')!;
+  const tiles = room.tiles;
 
-  room.tiles.forEach((tile, x, y) => {
-    sprites.drawTile(tile.name, context, x, y);
-  });
+  const buffer = document.createElement('canvas');
+  // Todo: figure out how long should be the buffer
+  // buffer.width = 2048;
+  buffer.width = 256 + 16;
+  buffer.height = 240;
+  const bufferContext = buffer.getContext('2d')!;
+  const redraw = makeRedrawer('optimized', tiles, sprites);
 
   return function drawBackgroundLayer(context, camera) {
     const { x, y } = camera.position;
-    context.drawImage(buffer, -x, y);
+
+    const drawWidth = toIndex(camera.size.x);
+    const drawFrom = toIndex(x);
+    const drawTo = drawFrom + drawWidth;
+    redraw(drawFrom, drawTo, bufferContext);
+
+    // Todo: make this 16 into a constant
+    context.drawImage(buffer, -x % 16, -y);
   };
 }
 
@@ -65,5 +71,54 @@ export function createCollisionLayer(room: Room): Layer {
     });
 
     resolvedTiles = [];
+  };
+}
+
+export function createCameraLayer(cameraToDrawOn: Camera): Layer {
+  return function drawCameraRectangle(context, cameraToDrawFrom) {
+    context.strokeStyle = 'purple';
+    context.beginPath();
+    context.rect(
+      cameraToDrawOn.position.x - cameraToDrawFrom.position.x,
+      cameraToDrawOn.position.y - cameraToDrawFrom.position.y,
+      cameraToDrawOn.size.x,
+      cameraToDrawOn.size.y,
+    );
+    context.stroke();
+  };
+}
+
+function makeRedrawer(version: 'optimized' | 'unoptimized', tiles: Matrix<Tile>, sprites: SpriteSheet) {
+  if (version === 'optimized') {
+    let startIndex = 0,
+      endIndex = 0;
+    return function redraw(drawFrom: number, drawTo: number, context: CanvasRenderingContext2D) {
+      if (drawFrom === startIndex && drawTo === endIndex) {
+        return;
+      }
+
+      startIndex = drawFrom;
+      endIndex = drawTo;
+
+      for (let x = startIndex; x <= endIndex; ++x) {
+        const col = tiles.getCol(x);
+        if (col) {
+          col.forEach((tile, y) => {
+            sprites.drawTile(tile.name, context, x - startIndex, y);
+          });
+        }
+      }
+    };
+  }
+
+  return function redraw(startIndex: number, endIndex: number, context: CanvasRenderingContext2D) {
+    for (let x = startIndex; x <= endIndex; ++x) {
+      const col = tiles.getCol(x);
+      if (col) {
+        col.forEach((tile, y) => {
+          sprites.drawTile(tile.name, context, x - startIndex, y);
+        });
+      }
+    }
   };
 }

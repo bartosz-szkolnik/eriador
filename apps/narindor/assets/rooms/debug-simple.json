@@ -1,0 +1,21 @@
+{
+  "spriteSheet": "dungeon",
+
+  "backgrounds": [
+    {
+      "tile": "wall",
+      "behavior": "background",
+      "ranges": [[0, 212, 0, 12]]
+    },
+    {
+      "tile": "bricks",
+      "behavior": "ground",
+      "ranges": [[0, 212, 12, 2]]
+    },
+    {
+      "tile": "wall",
+      "behavior": "background",
+      "ranges": [[75, 2, 12, 2]]
+    }
+  ]
+}

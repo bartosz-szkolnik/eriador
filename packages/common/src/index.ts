@@ -2,6 +2,7 @@ export * from './initializers';
 export * from './keyboard-state';
 export * from './loaders';
 export * from './spritesheet';
+export * from './spritesheet-box';
 export * from './animation';
 export * from './camera';
 export * from './compositor';

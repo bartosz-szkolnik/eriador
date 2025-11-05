@@ -1,5 +1,5 @@
 export type Tile = {
   name: string;
-  // tileset: string;
+  tileset: string;
   behavior: string;
 };

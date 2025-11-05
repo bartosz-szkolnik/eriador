@@ -10,6 +10,10 @@ export class SpriteSheet {
     private height: number,
   ) {}
 
+  get size() {
+    return this.width;
+  }
+
   define(name: string, x: number, y: number, width: number, height: number) {
     const sides = [false, true] as const;
     const buffers = sides.map(flip => {

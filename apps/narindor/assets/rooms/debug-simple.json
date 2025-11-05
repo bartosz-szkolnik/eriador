@@ -1,21 +1,44 @@
 {
-  "spriteSheet": "dungeon",
+  "spriteSheets": ["jungle", "coin"],
 
   "backgrounds": [
     {
       "tile": "wall",
       "behavior": "background",
+      "tileset": "jungle",
       "ranges": [[0, 212, 0, 12]]
     },
     {
-      "tile": "bricks",
+      "tile": "ground",
       "behavior": "ground",
-      "ranges": [[0, 212, 12, 2]]
+      "tileset": "jungle",
+      "ranges": [
+        [0, 212, 12, 2],
+        [5, 3, 9],
+        [12, 6, 11],
+        [2, 11],
+        [10, 2, 10],
+        [9, 1, 0, 7],
+        [29, 5],
+        [5, 7, 9],
+        [12, 6, 11, 1],
+        [2, 1, 11, 1],
+        [10, 2, 10, 1],
+        [10, 2, 10],
+        [9, 1, 0, 7]
+      ]
     },
     {
       "tile": "wall",
       "behavior": "background",
+      "tileset": "jungle",
       "ranges": [[75, 2, 12, 2]]
+    },
+    {
+      "tile": "coin",
+      "behavior": "background",
+      "tileset": "coin",
+      "ranges": [[5, 5]]
     }
   ]
 }

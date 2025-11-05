@@ -1,11 +1,11 @@
-import { loadImage, loadJSON, SpriteSheet } from '@eriador/common';
+import { createAnimation, loadImage, loadJSON, SpriteSheet, SpriteSheetBox } from '@eriador/common';
 import type { RoomSpec, SheetSpec, TileSpec } from './types';
 import { Room } from './room';
 import { createBackgroundLayer, createSpriteLayer } from './layers';
 
 export async function loadRoom(name: string) {
   const roomSpec = await loadJSON<RoomSpec>(`/assets/rooms/${name}.json`);
-  const backgroundSprites = await loadSpriteSheet(roomSpec.spriteSheet);
+  const backgroundSprites = await loadSpriteSheetBox(roomSpec.spriteSheets);
 
   const room = new Room();
   createTiles(room, roomSpec.backgrounds);
@@ -19,27 +19,60 @@ export async function loadRoom(name: string) {
   return room;
 }
 
-async function loadSpriteSheet(name: string) {
-  const { imageURL, tileHeight, tileWidth, tiles } = (await loadJSON(`/assets/sprite-sets/${name}.json`)) as SheetSpec;
+async function loadSpriteSheetBox(names: string[]) {
+  const box = new SpriteSheetBox();
+
+  for (const name of names) {
+    const sprites = await loadSpriteSheet(name);
+    box.add(name, sprites);
+  }
+
+  return box;
+}
+
+export async function loadSpriteSheet(name: string) {
+  const sheetSpec = (await loadJSON(`/assets/sprites/${name}.json`)) as SheetSpec;
+  const { imageURL, tileHeight, tileWidth, tiles, frames, animations } = sheetSpec;
   const image = await loadImage(imageURL);
 
   const sprites = new SpriteSheet(image, tileWidth, tileHeight);
 
-  tiles.forEach(({ name, index: [x, y] }) => {
-    sprites.defineTile(name, x, y);
-  });
+  if (tiles) {
+    tiles.forEach(({ name, index: [x, y] }) => {
+      sprites.defineTile(name, x, y);
+    });
+  }
+
+  if (frames) {
+    frames.forEach(({ name, rectangle: [x, y, width, height] }) => {
+      sprites.define(name, x, y, width, height);
+    });
+  }
+
+  if (animations) {
+    animations.forEach(({ name, frames, frameLength }) => {
+      const animation = createAnimation(frames, frameLength);
+      sprites.defineAnimation(name, animation);
+    });
+  }
 
   return sprites;
 }
 
 function createTiles(room: Room, backgrounds: RoomSpec['backgrounds']) {
-  function applyRange({ tile, behavior }: TileSpec, xStart: number, xLength: number, yStart: number, yLength: number) {
+  function applyRange(
+    { tile, behavior, tileset }: TileSpec,
+    xStart: number,
+    xLength: number,
+    yStart: number,
+    yLength: number,
+  ) {
     const xEnd = xStart + xLength;
     const yEnd = yStart + yLength;
 
     for (let x = xStart; x < xEnd; ++x) {
       for (let y = yStart; y < yEnd; ++y) {
-        room.tiles.set(x, y, { name: tile, behavior });
+        room.tiles.set(x, y, { name: tile, behavior, tileset });
       }
     }
   }

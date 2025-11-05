@@ -1,21 +1,22 @@
 {
-  "spriteSheet": "dungeon",
+  "spriteSheets": ["dungeon", "coin"],
 
   "backgrounds": [
     {
       "tile": "wall",
       "behavior": "background",
+      "tileset": "dungeon",
       "ranges": [[0, 212, 0, 12]]
     },
     {
       "tile": "bricks",
       "behavior": "ground",
+      "tileset": "dungeon",
       "ranges": [
         [0, 212, 12, 2],
         [5, 3, 9],
         [12, 6, 11],
         [2, 11],
-        [5, 5],
         [10, 2, 10],
         [9, 1, 0, 7],
         [29, 5],
@@ -30,6 +31,7 @@
     {
       "tile": "wall",
       "behavior": "background",
+      "tileset": "dungeon",
       "ranges": [
         [75, 2, 12, 2],
         [92, 2, 12, 2],
@@ -39,6 +41,7 @@
     {
       "tile": "stone-slab",
       "behavior": "ground",
+      "tileset": "dungeon",
       "ranges": [
         [27, 5, 9],
         [83, 3, 9],
@@ -56,6 +59,7 @@
     {
       "tile": "clay-brick",
       "behavior": "ground",
+      "tileset": "dungeon",
       "ranges": [
         [23, 9],
         [28, 9],
@@ -77,6 +81,7 @@
     {
       "tile": "box",
       "behavior": "ground",
+      "tileset": "dungeon",
       "ranges": [
         [141, 1, 9],
         [140, 2, 10],
@@ -107,6 +112,12 @@
         [185, 8, 11],
         [184, 9, 12]
       ]
+    },
+    {
+      "tile": "coin",
+      "behavior": "background",
+      "tileset": "coin",
+      "ranges": [[5, 5]]
     }
   ]
 }

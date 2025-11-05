@@ -18,12 +18,32 @@ export class Go extends Trait {
   // deceleration = 300;
   // dragFactor = 1 / 5000;
 
-  // distance = 0;
-  // heading = 1;
+  distance = 0;
+  heading = 1;
+
+  get isMoving() {
+    return this.direction !== 0;
+  }
+
+  get isMovingRight() {
+    return this.direction > 0;
+  }
+
+  get isMovingLeft() {
+    return this.direction < 0;
+  }
+
+  get isHeadingRight() {
+    return this.heading > 0;
+  }
+
+  get isHeadingLeft() {
+    return this.heading < 0;
+  }
 
   update(entity: Entity, { deltaTime }: GameContext) {
     entity.velocity.x = this.speed * deltaTime * this.direction;
-    // const absX = Math.abs(entity.velocity.x);
+    const absX = Math.abs(entity.velocity.x);
     // entity.velocity.x += this.acceleration * deltaTime * this.direction;
 
     // if (this.direction) {
@@ -38,7 +58,12 @@ export class Go extends Trait {
     // const drag = this.dragFactor * entity.velocity.x * absX;
     // entity.velocity.x -= drag;
 
-    // this.distance += absX * deltaTime;
+    if (this.isMoving) {
+      this.heading = this.direction;
+      this.distance += absX * deltaTime;
+    } else {
+      this.distance = 0;
+    }
   }
 
   changeDirection(direction: number) {

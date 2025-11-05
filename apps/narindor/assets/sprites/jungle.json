@@ -1,0 +1,15 @@
+{
+  "imageURL": "/assets/jungle-tileset.png",
+  "tileWidth": 16,
+  "tileHeight": 16,
+  "tiles": [
+    {
+      "name": "ground",
+      "index": [1, 0]
+    },
+    {
+      "name": "wall",
+      "index": [1, 4]
+    }
+  ]
+}

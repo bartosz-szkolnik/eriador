@@ -14,6 +14,8 @@ export class Room {
 
   readonly tileCollider = new TileCollider(this.tiles);
 
+  totalTime = 0;
+
   addLayer(layer: Layer) {
     this.compositor.addLayer(layer);
   }
@@ -35,6 +37,8 @@ export class Room {
 
       entity.velocity.y += GRAVITY * deltaTime;
     });
+
+    this.totalTime += deltaTime;
   }
 
   addEntity(entity: Entity) {

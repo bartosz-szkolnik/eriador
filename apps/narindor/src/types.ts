@@ -4,11 +4,11 @@ export type TileSpec = {
   behavior: 'background' | 'ground';
   // type: 'TILE';
   // style: string;
-  // tileset: 'foreground' | 'background';
+  tileset: string;
 };
 
 export type RoomSpec = {
-  spriteSheet: string;
+  spriteSheets: string[];
   backgrounds: TileSpec[];
 };
 
@@ -16,8 +16,17 @@ export type SheetSpec = {
   imageURL: string;
   tileWidth: number;
   tileHeight: number;
-  tiles: {
+  tiles?: {
     name: string;
     index: [number, number];
+  }[];
+  frames?: {
+    name: string;
+    rectangle: [number, number, number, number];
+  }[];
+  animations?: {
+    name: string;
+    frameLength: number;
+    frames: string[];
   }[];
 };

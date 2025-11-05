@@ -1,16 +1,13 @@
-import { loadJSON } from '@eriador/common';
-import type { RoomSpec } from './types';
+import { loadImage, loadJSON, SpriteSheet } from '@eriador/common';
+import type { RoomSpec, SheetSpec, TileSpec } from './types';
 import { Room } from './room';
 import { createBackgroundLayer, createSpriteLayer } from './layers';
-import { loadBackgroundSprites } from './sprites';
 
 export async function loadRoom(name: string) {
-  const [roomSpec, backgroundSprites] = await Promise.all([
-    loadJSON<RoomSpec>(`/assets/rooms/${name}.json`),
-    loadBackgroundSprites(),
-  ]);
-  const room = new Room();
+  const roomSpec = await loadJSON<RoomSpec>(`/assets/rooms/${name}.json`);
+  const backgroundSprites = await loadSpriteSheet(roomSpec.spriteSheet);
 
+  const room = new Room();
   createTiles(room, roomSpec.backgrounds);
 
   const backgroundLayer = createBackgroundLayer(room, backgroundSprites);
@@ -22,14 +19,47 @@ export async function loadRoom(name: string) {
   return room;
 }
 
+async function loadSpriteSheet(name: string) {
+  const { imageURL, tileHeight, tileWidth, tiles } = (await loadJSON(`/assets/sprite-sets/${name}.json`)) as SheetSpec;
+  const image = await loadImage(imageURL);
+
+  const sprites = new SpriteSheet(image, tileWidth, tileHeight);
+
+  tiles.forEach(({ name, index: [x, y] }) => {
+    sprites.defineTile(name, x, y);
+  });
+
+  return sprites;
+}
+
 function createTiles(room: Room, backgrounds: RoomSpec['backgrounds']) {
+  function applyRange({ tile, behavior }: TileSpec, xStart: number, xLength: number, yStart: number, yLength: number) {
+    const xEnd = xStart + xLength;
+    const yEnd = yStart + yLength;
+
+    for (let x = xStart; x < xEnd; ++x) {
+      for (let y = yStart; y < yEnd; ++y) {
+        room.tiles.set(y, x, { name: tile, behavior });
+      }
+    }
+  }
+
   backgrounds.forEach(background => {
-    const { ranges, tile } = background;
-    ranges.forEach(([x1, x2, y1, y2]) => {
-      for (let x = x1; x < x2; ++x) {
-        for (let y = y1; y < y2; ++y) {
-          room.tiles.set(y, x, { name: tile });
-        }
+    const { ranges } = background;
+    ranges.forEach(range => {
+      if (range.length === 4) {
+        const [xStart, xLength, yStart, yLength] = range;
+        applyRange(background, xStart, xLength, yStart, yLength);
+      }
+
+      if (range.length === 3) {
+        const [xStart, xLength, yStart] = range;
+        applyRange(background, xStart, xLength, yStart, 1);
+      }
+
+      if (range.length === 2) {
+        const [xStart, yStart] = range;
+        applyRange(background, xStart, 1, yStart, 1);
       }
     });
   });

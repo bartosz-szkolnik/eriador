@@ -1,0 +1,27 @@
+{
+  "imageURL": "/assets/dungeon-tileset.png",
+  "tileWidth": 16,
+  "tileHeight": 16,
+  "tiles": [
+    {
+      "name": "bricks",
+      "index": [2, 1]
+    },
+    {
+      "name": "wall",
+      "index": [2, 2]
+    },
+    {
+      "name": "stone-slab",
+      "index": [2, 5]
+    },
+    {
+      "name": "clay-brick",
+      "index": [10, 10]
+    },
+    {
+      "name": "box",
+      "index": [10, 11]
+    }
+  ]
+}

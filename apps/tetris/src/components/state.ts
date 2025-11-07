@@ -33,18 +33,21 @@ export class StateManager<TState> {
   };
 }
 
-const INITIAL_STATE = {
-  player: new StateManager<PlayerState>({
-    piece: null,
-    nextPiece: null,
-    position: Vector2.zero(),
-  }),
-  board: new StateManager<BoardState>({
-    matrix: Matrix.create(12, 20, EMPTY),
-  }),
-  score: 0,
-} satisfies State;
+// We need to create state from a function, because otherwise two tetris games share the state
+function createNewInitialState() {
+  return {
+    player: new StateManager<PlayerState>({
+      piece: null,
+      nextPiece: null,
+      position: Vector2.zero(),
+    }),
+    board: new StateManager<BoardState>({
+      matrix: Matrix.create(12, 20, EMPTY),
+    }),
+    score: 0,
+  } satisfies State;
+}
 
 export function createState() {
-  return new StateManager(INITIAL_STATE);
+  return new StateManager(createNewInitialState());
 }

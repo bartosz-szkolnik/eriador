@@ -18,6 +18,11 @@
 
 body {
   margin: 0;
+  display: flex;
+}
+
+.player {
+  flex: 1 1 auto;
 }
 
 canvas {

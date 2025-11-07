@@ -3,7 +3,7 @@ export enum KeyState {
   RELEASED = 0,
 }
 
-type KeyFn = (keyState: number) => void;
+type KeyFn = (keyState: number, event: KeyboardEvent) => void;
 
 type KeyboardStateConfig = {
   allowKeyRepeating?: boolean;
@@ -50,6 +50,6 @@ export class KeyboardState {
 
     this.keyStates.set(code, keyState);
     const fn = this.keyMap.get(code)!;
-    fn(keyState);
+    fn(keyState, event);
   }
 }

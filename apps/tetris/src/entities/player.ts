@@ -14,7 +14,7 @@ export type PlayerEvents = 'Player.RESET' | 'Player.MERGED';
 
 export class Player implements Entity {
   private readonly pieceManager = new PieceManager();
-  private readonly dropInterval = DROP_TIME;
+  private dropInterval = DROP_TIME;
 
   private dropCounter = 0;
 
@@ -92,6 +92,10 @@ export class Player implements Entity {
 
     this.state.modify({ nextPiece, piece, position });
     this.events.emit('Player.RESET');
+  }
+
+  setDropInterval(value: number) {
+    this.dropInterval = value;
   }
 
   private rotate(direction: MatrixRotateDirection) {

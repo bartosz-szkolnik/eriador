@@ -72,6 +72,10 @@ export class Matrix<T = unknown> {
     return this.grid.splice(y, deleteCount);
   }
 
+  copy() {
+    return Matrix.fromArray(this.grid);
+  }
+
   static fromArray<T>(array: T[][]) {
     const matrix = new Matrix<T>();
 

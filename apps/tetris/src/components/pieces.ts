@@ -12,7 +12,11 @@ export const DARK_BLUE = '#3877FF'; // 7
 export type PieceSymbol = 'T' | 'O' | 'I' | 'S' | 'Z' | 'L' | 'J';
 export type Piece = Matrix<string>;
 
-export const PIECES: Record<PieceSymbol, Piece> = {
+export function getPiece(symbol: PieceSymbol) {
+  return PIECES[symbol].copy();
+}
+
+const PIECES: Record<PieceSymbol, Piece> = {
   T: Matrix.fromArray(
     numbersToColors([
       [0, 0, 0],

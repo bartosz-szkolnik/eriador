@@ -41,6 +41,22 @@
     {
       "name": "run-5",
       "rectangle": [80, 16, 16, 16]
+    },
+    {
+      "name": "run-5",
+      "rectangle": [80, 16, 16, 16]
+    },
+    {
+      "name": "jump-0",
+      "rectangle": [0, 112, 16, 16]
+    },
+    {
+      "name": "jump-1",
+      "rectangle": [16, 112, 16, 16]
+    },
+    {
+      "name": "jump-2",
+      "rectangle": [32, 112, 16, 16]
     }
   ]
 }

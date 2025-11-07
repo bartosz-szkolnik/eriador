@@ -1,7 +1,7 @@
 import { Trait, type TraitCtor } from './trait';
 import { Vector2 } from '../math';
 import type { GameContext } from '../types';
-// import type { Match } from '../collisions/tile-resolver';
+import type { Match } from '../collisions/tile-resolver';
 
 export type Side = 'bottom' | 'top' | 'right' | 'left';
 
@@ -39,11 +39,11 @@ export class Entity {
     this.lifetime += gameContext.deltaTime ?? 0;
   }
 
-  // obstruct(side: Side, match: Match) {
-  //   this.traits.forEach(trait => {
-  //     trait.obstruct(this, side, match);
-  //   });
-  // }
+  obstruct(side: Side, match: Match) {
+    this.traits.forEach(trait => {
+      trait.obstruct(this, side, match);
+    });
+  }
 
   draw(_context: CanvasRenderingContext2D) {}
   turbo(_turboOn: boolean) {}

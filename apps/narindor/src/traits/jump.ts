@@ -1,8 +1,8 @@
-// import { type Match } from '@eriador/common';
-import { Entity, Trait, type GameContext } from '@eriador/core';
+import { Entity, Trait, type GameContext, type Side } from '@eriador/core';
 
 const MAX_DURATION = 0.3;
 const SPEED_BOOST = 0.3;
+const HUNDRED_MS = 0.1;
 
 export class Jump extends Trait {
   private readonly duration = MAX_DURATION;
@@ -12,7 +12,7 @@ export class Jump extends Trait {
 
   // coyote timer
   private requestTime = 0;
-  private readonly gracePeriod = 0.1;
+  private readonly gracePeriod = HUNDRED_MS;
 
   private engageTime = 0;
 
@@ -31,10 +31,10 @@ export class Jump extends Trait {
 
   update(entity: Entity, { deltaTime }: GameContext) {
     if (this.requestTime > 0) {
-      // if (this.ready > 0) {
-      this.engageTime = this.duration;
-      this.requestTime = 0;
-      // }
+      if (this.ready > 0) {
+        this.engageTime = this.duration;
+        this.requestTime = 0;
+      }
 
       this.requestTime -= deltaTime;
     }
@@ -44,14 +44,14 @@ export class Jump extends Trait {
       this.engageTime -= deltaTime;
     }
 
-    // this.ready--;
+    this.ready--;
   }
 
-  // obstruct(_entity: Entity, side: Side, _match: Match) {
-  //   if (side === 'bottom') {
-  //     this.ready = 1;
-  //   } else if (side === 'top') {
-  //     this.cancel();
-  //   }
-  // }
+  obstruct(_entity: Entity, side: Side) {
+    if (side === 'bottom') {
+      this.ready = 1;
+    } else if (side === 'top') {
+      this.cancel();
+    }
+  }
 }

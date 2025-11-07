@@ -73,14 +73,14 @@ export class TileCollider {
           entity.position.y = match.y1 - sizeY;
           entity.velocity.y = 0;
 
-          // entity.obstruct('bottom', match);
+          entity.obstruct('bottom', match);
         }
       } else if (velY < 0) {
         if (posY < match.y2) {
           entity.position.y = match.y2;
           entity.velocity.y = 0;
 
-          // entity.obstruct('top', match);
+          entity.obstruct('top', match);
         }
       }
     });

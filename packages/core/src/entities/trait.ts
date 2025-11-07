@@ -1,6 +1,6 @@
-import { type Entity } from './entity';
+import { type Entity, type Side } from './entity';
 import type { GameContext } from '../types';
-// import type { Match } from '../collisions/tile-resolver';
+import type { Match } from '../collisions/tile-resolver';
 
 export type TraitCtor = new () => Trait;
 
@@ -9,5 +9,5 @@ export class Trait {
     console.warn('Unhandled update call in Trait');
   }
 
-  // obstruct(_entity: Entity, _side: Side, _match: Match) {}
+  obstruct(_entity: Entity, _side: Side, _match: Match) {}
 }

@@ -17,15 +17,25 @@
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
   display: flex;
+  justify-content: center;
 }
 
 .player {
   flex: 1 1 auto;
+
+  &.local canvas {
+    border-color: #fff;
+  }
 }
 
 canvas {
-  border: solid 0.2em #fff;
-  height: 88vh;
+  border: solid 0.2em #707070;
+  height: 80vh;
+  image-rendering: pixelated;
+}
+
+canvas#main-menu {
+  margin-top: 48px;
 }

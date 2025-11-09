@@ -1,12 +1,17 @@
 {
-  "name": "@eriador/core",
+  "name": "@eriador/server",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
   "main": "./index.ts",
-  "type": "module",
   "types": "./index.ts",
+  "type": "module",
   "devDependencies": {
+    "@types/ws": "^8.18.1",
     "typescript": "5.9.3"
+  },
+  "dependencies": {
+    "ws": "^8.18.3",
+    "@eriador/core": "workspace:*"
   }
 }

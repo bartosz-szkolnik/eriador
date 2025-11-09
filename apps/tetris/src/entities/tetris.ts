@@ -3,16 +3,21 @@ import type { Entity } from './types';
 import { Player, type PlayerEvents } from './player';
 import { Board } from './board';
 import { Renderer } from '../components/renderer';
-import { createState } from '../components/state';
+import { createState, type DeserializedState, type State } from '../components/state';
 
 export class Tetris implements Entity {
-  private readonly events = new EventEmitter<PlayerEvents>();
+  private readonly events = new EventEmitter<PlayerEvents | 'STATE_CHANGED'>();
+  private readonly scoreElement = this.parentElement.querySelector<HTMLDivElement>('.score')!;
   private readonly stateManager = createState();
 
   private readonly board = new Board(this.stateManager.getState('board'));
-  readonly player = new Player(this.events, this.board, this.stateManager.getState('player'));
+  readonly player = new Player(
+    this.events as EventEmitter<PlayerEvents>,
+    this.board,
+    this.stateManager.getState('player'),
+  );
 
-  constructor(private readonly scoreElement: HTMLDivElement) {
+  constructor(public readonly parentElement: HTMLDivElement) {
     this.player.init();
     this.initListeners();
   }
@@ -25,6 +30,34 @@ export class Tetris implements Entity {
     renderer.renderBackground();
     this.player.render(renderer);
     this.board.render(renderer);
+  }
+
+  listenOnStateManagerEvents() {
+    this.stateManager.events.on('STATE_CHANGED', (state: State) => {
+      this.events.emit('STATE_CHANGED', state);
+    });
+
+    this.player['stateManager'].events.on('STATE_CHANGED', () => {
+      this.events.emit('STATE_CHANGED', this.stateManager.getAllState());
+    });
+
+    return this.events;
+  }
+
+  setState({ score, board, player }: DeserializedState) {
+    this.state.modify({ score }, { emitValue: false });
+
+    const { player: playerState, board: boardState } = this.stateManager.getAllState();
+    boardState.modifyState({ matrix: board.matrix }, { emitValue: false });
+
+    const { nextPiece, piece, position } = player;
+    playerState.modifyState({ piece, nextPiece, position: position }, { emitValue: false });
+
+    this.updateScore(score);
+  }
+
+  getState() {
+    return this.stateManager.getAllState();
   }
 
   private initListeners() {

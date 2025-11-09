@@ -1,16 +1,11 @@
-import { initializeCanvas, Keys } from '@eriador/common';
+import { Keys } from '@eriador/common';
 import { Timer } from '@eriador/core';
-import { setupKeyboardForOnePlayer } from '../input';
-import { Renderer } from '../components/renderer';
-import { Tetris } from '../entities/tetris';
+import { setupKeyboardForOnePlayer } from '../utils/input';
 import { WE_WORK_IN_SECONDS } from '../main';
+import { TetrisBuilder } from '../components/tetris-builder';
 
 export function startSinglePlayerTetris() {
-  const { context } = initializeCanvas({ elementId: 'tetris', width: 240, height: 400 });
-  context.scale(20, 20);
-
-  const renderer = new Renderer(context);
-  const tetris = new Tetris(document.getElementById('score') as HTMLDivElement);
+  const { renderer, tetris } = new TetrisBuilder(document).createTetrisGame();
 
   const timer = new Timer();
   timer.setUpdateFn(deltaTime => {

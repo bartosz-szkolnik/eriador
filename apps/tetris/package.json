@@ -5,13 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "node src/server.ts",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
     "@eriador/core": "workspace:*",
-    "@eriador/common": "workspace:*"
+    "@eriador/common": "workspace:*",
+    "@eriador/client": "workspace:*",
+    "@eriador/server": "workspace:*"
   },
   "devDependencies": {
     "typescript": "~5.9.3",

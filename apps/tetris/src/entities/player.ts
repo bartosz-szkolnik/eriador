@@ -2,8 +2,9 @@ import { EventEmitter, MatrixRotateDirection, Vector2 } from '@eriador/core';
 import { PieceManager } from '../components/piece-manager';
 import type { Renderer } from '../components/renderer';
 import type { BoardLike, Entity } from './types';
-import type { PlayerState, StateManager } from '../components/state';
+import type { PlayerState } from '../components/state';
 import { DROP_TIME } from '../main';
+import type { StateManager } from '../components/state-manager';
 
 export enum MoveDirection {
   RIGHT = 1,
@@ -54,6 +55,8 @@ export class Player implements Entity {
       this.board.mergeWith(piece, position);
 
       this.afterMerge();
+    } else {
+      this.state.modify({});
     }
   }
 
@@ -76,21 +79,25 @@ export class Player implements Entity {
     if (this.board.collidesWith(piece, position)) {
       position.x -= direction;
     }
+
+    this.state.modify({});
   }
 
   rotateLeft() {
     this.rotate(MatrixRotateDirection.LEFT);
+    this.state.modify({});
   }
 
   rotateRight() {
     this.rotate(MatrixRotateDirection.RIGHT);
+    this.state.modify({});
   }
 
   reset() {
     const { piece, nextPiece } = this.pieceManager.init();
     const position = Vector2.from(5, 0);
 
-    this.state.modify({ nextPiece, piece, position });
+    this.state.modify({ nextPiece, piece, position }, { emitValue: false });
     this.events.emit('Player.RESET');
   }
 
@@ -126,7 +133,7 @@ export class Player implements Entity {
     const nextPiece = this.pieceManager.next();
 
     const position = Vector2.from(this.middleOfArena, 0);
-    this.state.modify({ nextPiece, piece, position });
+    this.state.modify({ nextPiece, piece, position }, { emitValue: false });
 
     if (this.board.collidesWith(piece, position)) {
       this.events.emit('Player.RESET');

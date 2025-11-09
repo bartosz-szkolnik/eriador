@@ -7,21 +7,14 @@
     <title>Tetris in Eriador Engine</title>
   </head>
   <body>
-    <div class="player">
-      <div id="score">0</div>
-      <canvas id="tetris"></canvas>
-    </div>
+    <canvas id="main-menu"></canvas>
 
-    <!-- <div class="player">
-      <div class="score">0</div>
-      <canvas id="tetris-0"></canvas>
-    </div>
-
-    <div class="player">
-      <div class="score">0</div>
-      <canvas id="tetris-1"></canvas>
-    </div> -->
-
+    <template id="player-template">
+      <div class="player">
+        <div class="score">0</div>
+        <canvas class="tetris"></canvas>
+      </div>
+    </template>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -1,7 +1,7 @@
 import { KeyboardState, Keys } from '@eriador/common';
 import { InputRouter } from '@eriador/core';
-import { MoveDirection, type Player } from './entities/player';
-import { DROP_TIME } from './main';
+import { MoveDirection, type Player } from '../entities/player';
+import { DROP_TIME } from '../main';
 
 export function setupKeyboardForOnePlayer(window: Window) {
   const input = new KeyboardState({ allowKeyRepeating: true });

@@ -2,7 +2,11 @@ import { Matrix, Vector2 } from '@eriador/core';
 import { EMPTY, type Piece } from '../components/pieces';
 import type { BoardLike, Entity } from './types';
 import type { Renderer } from '../components/renderer';
-import type { BoardState, StateManager } from '../components/state';
+import type { BoardState } from '../components/state';
+import type { StateManager } from '../components/state-manager';
+
+const BOARD_WIDTH = 12;
+const BOARD_HEIGHT = 20;
 
 export class Board implements Entity, BoardLike {
   constructor(private readonly stateManager: StateManager<BoardState>) {}
@@ -12,7 +16,7 @@ export class Board implements Entity, BoardLike {
   }
 
   init() {
-    this.state.modify({ matrix: Matrix.create(12, 20, EMPTY) });
+    this.state.modify({ matrix: Matrix.create(BOARD_WIDTH, BOARD_HEIGHT, EMPTY) });
   }
 
   render(renderer: Renderer) {

@@ -1,5 +1,6 @@
 import { Matrix, Vector2 } from '@eriador/core';
 import { EMPTY, type Piece } from './pieces';
+import { StateManager } from './state-manager';
 
 export type State = {
   player: StateManager<PlayerState>;
@@ -17,22 +18,6 @@ export type BoardState = {
   matrix: Matrix<string>;
 };
 
-export class StateManager<TState> {
-  constructor(private state: TState) {}
-
-  getState<Key extends keyof TState>(key: Key) {
-    return this.state[key];
-  }
-
-  getAllState() {
-    return { ...this.state };
-  }
-
-  modifyState = (value: Partial<TState>) => {
-    this.state = { ...this.state, ...value };
-  };
-}
-
 // We need to create state from a function, because otherwise two tetris games share the state
 function createNewInitialState() {
   return {
@@ -49,5 +34,52 @@ function createNewInitialState() {
 }
 
 export function createState() {
-  return new StateManager(createNewInitialState());
+  return new StateManager<State>(createNewInitialState());
+}
+
+export type SerializedState = {
+  score: number;
+  board: { matrix: string[][] };
+  player: {
+    piece: string[][] | null;
+    nextPiece: string[][] | null;
+    position: { x: number; y: number };
+  };
+};
+
+export function serializeState(state: State): SerializedState {
+  const { piece, nextPiece, position } = state.player.getAllState();
+
+  return {
+    score: state.score,
+    board: { matrix: state.board.getState('matrix').serialize() },
+    player: {
+      piece: piece?.serialize() ?? null,
+      nextPiece: nextPiece?.serialize() ?? null,
+      position: position.serialize(),
+    },
+  };
+}
+
+export type DeserializedState = {
+  score: number;
+  board: { matrix: Matrix<string> };
+  player: {
+    piece: Matrix<string> | null;
+    nextPiece: Matrix<string> | null;
+    position: Vector2;
+  };
+};
+
+export function deserializeState(serializedState: SerializedState): DeserializedState {
+  const { nextPiece, piece, position } = serializedState.player;
+  return {
+    score: serializedState.score,
+    board: { matrix: Matrix.fromArray(serializedState.board.matrix) },
+    player: {
+      piece: piece ? Matrix.fromArray(piece) : null,
+      nextPiece: nextPiece ? Matrix.fromArray(nextPiece) : null,
+      position: Vector2.from(position.x, position.y),
+    },
+  };
 }

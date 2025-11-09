@@ -76,11 +76,15 @@ export class Matrix<T = unknown> {
     return Matrix.fromArray(this.grid);
   }
 
+  serialize() {
+    return [...this.grid];
+  }
+
   static fromArray<T>(array: T[][]) {
     const matrix = new Matrix<T>();
 
-    array.forEach((row, y) => {
-      row.forEach((value, x) => {
+    array.forEach((row, x) => {
+      row.forEach((value, y) => {
         matrix.set(x, y, value);
       });
     });

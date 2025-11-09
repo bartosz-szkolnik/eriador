@@ -7,4 +7,6 @@ export * from './animation';
 export * from './camera';
 export * from './compositor';
 export * from './debug';
+export * from './font';
+export * from './main-menu';
 export * as Keys from './keys';
